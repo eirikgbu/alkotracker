@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/alkotracker/static/css/main.e6c13ad2.css",
+    "main.js": "/alkotracker/static/js/main.3bf284c1.js",
+    "static/js/453.971ce0df.chunk.js": "/alkotracker/static/js/453.971ce0df.chunk.js",
+    "index.html": "/alkotracker/index.html",
+    "main.e6c13ad2.css.map": "/alkotracker/static/css/main.e6c13ad2.css.map",
+    "main.3bf284c1.js.map": "/alkotracker/static/js/main.3bf284c1.js.map",
+    "453.971ce0df.chunk.js.map": "/alkotracker/static/js/453.971ce0df.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e6c13ad2.css",
+    "static/js/main.3bf284c1.js"
+  ]
+}
