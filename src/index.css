@@ -1,13 +1,232 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
+/* === Base styles === */
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f4f4f4;
+    color: #222;
+    padding: 1rem;
+    margin: 0;
+  }
+  
+  /* === Headings === */
+  h1 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+  }
+  
+  h3 {
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  /* === Table styles === */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    margin-top: 1rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  }
+  
+  th, td {
+    padding: 0.6rem 0.8rem;
+    border: 1px solid #ddd;
+    text-align: left;
+    font-size: 0.95rem;
+  }
+  
+  thead {
+    background-color: #e9ecef;
+  }
+  
+  th {
+    cursor: pointer;
+    user-select: none;
+  }
+  
+  /* === Button styles === */
+  button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: 4px 4px 4px 0;
+    font-size: 14px;
+    transition: background-color 0.2s ease;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* === Checkbox labels === */
+  label {
+    display: inline-block;
+    margin-right: 10px;
+    font-size: 0.9rem;
+  }
+  
+  input[type="checkbox"] {
+    margin-right: 4px;
+  }
+  
+  /* === Mobile friendly === */
+  @media (max-width: 600px) {
+    table, thead, tbody, th, td, tr {
+      font-size: 0.85rem;
+    }
+  
+    h1 {
+      font-size: 1.4rem;
+    }
+  
+    button {
+      font-size: 13px;
+      padding: 5px 10px;
+    }
+  }
+
+  body.dark-mode {
+    background-color: #1e1e1e;
+    color: #f1f1f1;
+  }
+  
+  body.dark-mode table {
+    background-color: #2c2c2c;
+    color: #fff;
+  }
+  
+  body.dark-mode th {
+    background-color: #444;
+  }
+  
+  body.dark-mode td {
+    border-color: #555;
+  }
+  
+  body.dark-mode button {
+    background-color: #444;
+    color: #fff;
+  }
+  
+  body.dark-mode button:hover {
+    background-color: #666;
+  }
+
+  body.rainbow-mode {
+    animation: rainbowBg 1s infinite;
+    color: #fff !important;
+  }
+  
+  @keyframes rainbowBg {
+    0% { background-color: red; }
+    20% { background-color: orange; }
+    40% { background-color: yellow; }
+    60% { background-color: green; }
+    80% { background-color: blue; }
+    100% { background-color: violet; }
+  }
+  
+  body.rainbow-mode h1, 
+  body.rainbow-mode h3, 
+  body.rainbow-mode label {
+    animation: rainbowText 3s infinite linear;
+  }
+  
+  @keyframes rainbowText {
+    0% { color: red; }
+    20% { color: orange; }
+    40% { color: yellow; }
+    60% { color: green; }
+    80% { color: blue; }
+    100% { color: violet; }
+  }
+  
+  body.rainbow-mode button {
+    transform: rotate(3deg);
+    animation: spinButton 2s infinite linear;
+    background: linear-gradient(90deg, red, orange, yellow, green, blue, indigo, violet);
+    color: black;
+  }
+  
+  @keyframes spinButton {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  /* Tab container */
+.tab-container {
+    display: flex;
+    margin-bottom: 1rem;
+  }
+  
+  /* Individual tab button */
+  .tab-button {
+    padding: 10px 20px;
+    margin: 0 5px;
+    background-color: #f4f4f4;
+    color: #333;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  
+  .tab-button:hover {
+    background-color: #e0e0e0;
+  }
+  
+  .tab-button.active {
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+    transform: scale(1.05); /* En liten animasjonseffekt */
+  }
+  
+  /* Enkel spinner */
+.spinner {
+    border: 4px solid #f3f3f3; /* Light gray */
+    border-top: 4px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 2s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+
+  /* Lasteskjerm */
+.loading-screen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+  }
+  
+  .loading-logo {
+    width: 25%; /* Adjust the width percentage as needed */
+    max-width: 200px; /* Max size */
+    margin-bottom: 20px;
+  }
+  
+  .spinner {
+    border: 4px solid #f3f3f3; /* Light gray */
+    border-top: 4px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 2s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
