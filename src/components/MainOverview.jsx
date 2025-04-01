@@ -7,6 +7,8 @@ export default function MainOverview({
   showTotal,
   showAvg,
   showWeeklyAvg,  // Legg til for ukentlig snitt
+  showMonthlyAvg,  // Legg til for månedlig snitt
+  showYearlyAvg,  // Legg til for årlig snitt
   sortBy,
   sortDirection,
   handleSortChange,
@@ -14,6 +16,8 @@ export default function MainOverview({
   setShowTotal,
   setShowAvg,
   setShowWeeklyAvg,
+  setShowMonthlyAvg,  // Legg til for månedlig snitt
+  setShowYearlyAvg,  // Legg til for årlig snitt
   filtered,
   allStats
 }) {
@@ -72,6 +76,22 @@ export default function MainOverview({
           />
           Vis ukentlig snitt
         </label>
+        <label>
+          <input
+            type="checkbox"
+            checked={showMonthlyAvg}  // Legg til for månedlig snitt
+            onChange={() => setShowMonthlyAvg(!showMonthlyAvg)}
+          />
+          Vis månedlig snitt
+        </label>
+        <label>
+          <input
+            type="checkbox"
+            checked={showYearlyAvg}  // Legg til for årlig snitt
+            onChange={() => setShowYearlyAvg(!showYearlyAvg)}
+          />
+          Vis antatt antall pils i år
+        </label>
       </div>
 
       {/* Tabell */}
@@ -80,6 +100,8 @@ export default function MainOverview({
         showTotal={showTotal}
         showAvg={showAvg}
         showWeeklyAvg={showWeeklyAvg}  // Send ukentlig snitt til tabellen
+        showMonthlyAvg={showMonthlyAvg}  // Send månedlig snitt til tabellen
+        showYearlyAvg={showYearlyAvg}  // Send årlig snitt til tabellen
         sortBy={sortBy}
         sortDirection={sortDirection}
         onSortChange={handleSortChange}

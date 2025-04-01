@@ -27,6 +27,8 @@ function App() {
   const [showTotal, setShowTotal] = useState(true);
   const [showAvg, setShowAvg] = useState(true);
   const [showWeeklyAvg, setShowWeeklyAvg] = useState(true);  // Ny state for ukentlig snitt
+  const [showMonthlyAvg, setShowMonthlyAvg] = useState(true);  // Ny state for månedlig snitt
+  const [showYearlyAvg, setShowYearlyAvg] = useState(true);  // Ny state for årlig snitt
   const [sortBy, setSortBy] = useState("total");
   const [sortDirection, setSortDirection] = useState("desc");
   const [activeTab, setActiveTab] = useState("daily");
@@ -90,6 +92,8 @@ function App() {
           showTotal={showTotal}
           showAvg={showAvg}
           showWeeklyAvg={showWeeklyAvg}  // Send ukentlig snitt til MainOverview
+          showMonthlyAvg={showMonthlyAvg}  // Send månedlig snitt til MainOverview
+          showYearlyAvg={showYearlyAvg}  // Send årlig snitt til MainOverview
           sortBy={sortBy}
           sortDirection={sortDirection}
           handleSortChange={handleSortChange}
@@ -97,6 +101,8 @@ function App() {
           setShowTotal={setShowTotal}
           setShowAvg={setShowAvg}
           setShowWeeklyAvg={setShowWeeklyAvg}  // Sette ukentlig snitt
+          setShowMonthlyAvg={setShowMonthlyAvg}  // Sette månedlig snitt
+          setShowYearlyAvg={setShowYearlyAvg}  // Sette årlig snitt
           filtered={sortedStats} 
           allStats={allStats}
         />
