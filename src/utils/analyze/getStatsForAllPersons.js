@@ -16,7 +16,7 @@ export default function getStatsForAllPersons(data) {
       const avg = registeredDays > 0 ? total / registeredDays : 0;
       const weeklyAvg = (avg * 7).toFixed(2);  // Ukentlig snitt beregnet
       const monthlyAvg = (avg * 365/12).toFixed(2);  // Månedlig snitt beregnet
-      const yearlyAvg = (avg * 365).toFixed(2);  // Årlig snitt beregnet
+      const yearlyAvg = (avg * 365).toFixed(0);  // Årlig snitt beregnet
   
       return { name, total, avg: avg.toFixed(2), weeklyAvg, monthlyAvg, yearlyAvg };  // Runder kun på visning
     }).sort((a, b) => b.total - a.total);
