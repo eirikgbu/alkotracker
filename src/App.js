@@ -1,26 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState} from "react";
 import useSheetData from "./hooks/useSheetData";
 import getStatsForAllPersons from "./utils/analyze/getStatsForAllPersons";
 import Tabs from "./components/Tabs";
 import WeeklyOverview from "./components/WeeklyOverview";
 import MainOverview from "./components/MainOverview";
 import logo from './images/logo1.png';  // Her importerer vi logoen
+import Topbar from "./components/TopBar/TopBar";
 
 function App() {
   const data = useSheetData();
-
-  // Dark Mode: lagre i localStorage
-  const [darkMode, setDarkMode] = useState(() => localStorage.getItem("darkMode") === "true");
-  useEffect(() => {
-    document.body.classList.toggle("dark-mode", darkMode);
-    localStorage.setItem("darkMode", darkMode);
-  }, [darkMode]);
-
-  // Bjarnemodus (Rainbow Mode)
-  const [rainbowMode, setRainbowMode] = useState(false);
-  useEffect(() => {
-    document.body.classList.toggle("rainbow-mode", rainbowMode);
-  }, [rainbowMode]);
 
   // State for valgt person og visning
   const [selectedPeople, setSelectedPeople] = useState(data?.names || []);
@@ -69,51 +57,48 @@ function App() {
     return 0;
   });
 
+  const mainContentStyle = {
+    marginTop: "70px", // Juster dette etter høyden på topbaren
+    padding: "20px", // Ekstra padding for bedre plassering
+  };
+
   return (
     <div>
+      <Topbar />
       {/* Tab navigation */}
-      <Tabs activeTab={activeTab} setActiveTab={setActiveTab} />
+      <div style={mainContentStyle}>
+        <Tabs activeTab={activeTab} setActiveTab={setActiveTab} />
 
-      {/* Knapp for dark mode */}
-      <button onClick={() => setDarkMode(prev => !prev)} className="mode-toggle-btn">
-        {darkMode ? "☀️ Lys modus" : "🌙 Mørk modus"}
-      </button>
 
-      {/* Knapp for rainbow mode */}
-      <button onClick={() => setRainbowMode(prev => !prev)} className="mode-toggle-btn">
-        {rainbowMode ? "SKRU AV 🌈BJARNEMODUS🌈" : "🌈Bjarnemodus🌈"}
-      </button>
+        {/* Daglig Oversikt (Main) */}
+        {activeTab === "daily" && (
+          <MainOverview
+            data={data}
+            selectedPeople={selectedPeople}
+            showTotal={showTotal}
+            showAvg={showAvg}
+            showWeeklyAvg={showWeeklyAvg}  // Send ukentlig snitt til MainOverview
+            showMonthlyAvg={showMonthlyAvg}  // Send månedlig snitt til MainOverview
+            showYearlyAvg={showYearlyAvg}  // Send årlig snitt til MainOverview
+            sortBy={sortBy}
+            sortDirection={sortDirection}
+            handleSortChange={handleSortChange}
+            setSelectedPeople={setSelectedPeople}
+            setShowTotal={setShowTotal}
+            setShowAvg={setShowAvg}
+            setShowWeeklyAvg={setShowWeeklyAvg}  // Sette ukentlig snitt
+            setShowMonthlyAvg={setShowMonthlyAvg}  // Sette månedlig snitt
+            setShowYearlyAvg={setShowYearlyAvg}  // Sette årlig snitt
+            filtered={sortedStats} 
+            allStats={allStats}
+          />
+        )}
 
-      {/* Daglig Oversikt (Main) */}
-      {activeTab === "daily" && (
-        <MainOverview
-          data={data}
-          selectedPeople={selectedPeople}
-          showTotal={showTotal}
-          showAvg={showAvg}
-          showWeeklyAvg={showWeeklyAvg}  // Send ukentlig snitt til MainOverview
-          showMonthlyAvg={showMonthlyAvg}  // Send månedlig snitt til MainOverview
-          showYearlyAvg={showYearlyAvg}  // Send årlig snitt til MainOverview
-          sortBy={sortBy}
-          sortDirection={sortDirection}
-          handleSortChange={handleSortChange}
-          setSelectedPeople={setSelectedPeople}
-          setShowTotal={setShowTotal}
-          setShowAvg={setShowAvg}
-          setShowWeeklyAvg={setShowWeeklyAvg}  // Sette ukentlig snitt
-          setShowMonthlyAvg={setShowMonthlyAvg}  // Sette månedlig snitt
-          setShowYearlyAvg={setShowYearlyAvg}  // Sette årlig snitt
-          filtered={sortedStats} 
-          allStats={allStats}
-        />
-      )}
-
-      {/* Ukentlig Oversikt */}
-      {activeTab === "weekly" && <WeeklyOverview />}
+        {/* Ukentlig Oversikt */}
+        {activeTab === "weekly" && <WeeklyOverview />}
+      </div>
     </div>
   );
 }
 
 export default App;
-
-

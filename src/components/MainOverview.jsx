@@ -23,8 +23,6 @@ export default function MainOverview({
 }) {
   return (
     <>
-      <h1>Alkotracker 🍻</h1>
-
       {/* Velg personer */}
       <div>
         {data.names.map((name) => (
