@@ -23,35 +23,58 @@ export default function StatTable({
     showYearlyAvg && { key: "yearlyAvg", label: "Antatt antall pils i år" }
   ].filter(Boolean);
 
+  const stickyStyle = {
+    position: "sticky",
+    left: 0,
+    background: "#fff",
+    zIndex: 2,
+    textAlign: "center",
+    verticalAlign: "middle",
+  };
+
   return (
-    <table>
-      <thead>
-        <tr>
-          <th style={{ cursor: "default" }}>Måling</th>
-          {stats.map((stat, index) => (
-            <th key={index} style={{ cursor: "default" }}>
-              {stat.name}
-            </th>
-          ))}
-        </tr>
-      </thead>
-      <tbody>
-        {visibleRows.map((row) => (
-          <tr key={row.key}>
-            <td
-              onClick={() => handleSort(row.key)}
-              style={{ cursor: "pointer", fontWeight: "bold" }}
-              title="Klikk for å sortere"
-            >
-              {row.label}
-              {sortBy === row.key ? (sortDirection === "asc" ? " ↑" : " ↓") : ""}
-            </td>
+    <div style={{ overflowX: "auto", maxWidth: "100%" }}>
+      <table style={{ borderCollapse: "collapse", minWidth: "600px" }}>
+        <thead>
+          <tr>
+            <th style={{ ...stickyStyle, cursor: "default" }}></th>
             {stats.map((stat, index) => (
-              <td key={index}>{stat[row.key]}</td>
+              <th key={index} style={{
+                cursor: "default",
+                textAlign: "center",
+                verticalAlign: "middle",
+              }}>
+                {stat.name}
+              </th>
             ))}
           </tr>
-        ))}
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          {visibleRows.map((row) => (
+            <tr key={row.key}>
+              <td
+                onClick={() => handleSort(row.key)}
+                style={{
+                  ...stickyStyle,
+                  cursor: "pointer",
+                  fontWeight: "bold",
+                  zIndex: 1,
+                }}
+                title="Klikk for å sortere"
+              >
+                {row.label}
+                {sortBy === row.key ? (sortDirection === "asc" ? " ↑" : " ↓") : ""}
+              </td>
+              {stats.map((stat, index) => (
+                <td key={index} style={{
+                  textAlign: "center",
+                  verticalAlign: "middle"
+                }}>{stat[row.key]}</td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 }
