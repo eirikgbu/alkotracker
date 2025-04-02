@@ -4,63 +4,51 @@ export default function StatTable({
   stats,
   showTotal,
   showAvg,
-  showWeeklyAvg,  // Nytt flagg for ukentlig snitt
-  showMonthlyAvg,  // Nytt flagg for månedlig snitt
-  showYearlyAvg,  // Nytt flagg for årlig snitt
+  showWeeklyAvg,
+  showMonthlyAvg,
+  showYearlyAvg,
   sortBy,
   sortDirection,
   onSortChange
 }) {
-  // Funksjon for å rendre hver kolonne
-  const renderColumn = (column, value) => {
-    return <td>{value}</td>;
+  const handleSort = (column) => {
+    onSortChange(column);
   };
 
-  const handleSort = (column) => {
-    onSortChange(column); // Kall på sorteringsfunksjonen fra App.js
-  };
+  const visibleRows = [
+    showTotal && { key: "total", label: "Total" },
+    showAvg && { key: "avg", label: "Daglig Snitt" },
+    showWeeklyAvg && { key: "weeklyAvg", label: "Ukentlig Snitt" },
+    showMonthlyAvg && { key: "monthlyAvg", label: "Månedlig Snitt" },
+    showYearlyAvg && { key: "yearlyAvg", label: "Antatt antall pils i år" }
+  ].filter(Boolean);
 
   return (
     <table>
       <thead>
         <tr>
-          <th onClick={() => handleSort("name")}>Navn</th>
-          {showTotal && (
-            <th onClick={() => handleSort("total")}>
-              Total {sortBy === "total" ? (sortDirection === "asc" ? "↑" : "↓") : ""}
+          <th style={{ cursor: "default" }}>Måling</th>
+          {stats.map((stat, index) => (
+            <th key={index} style={{ cursor: "default" }}>
+              {stat.name}
             </th>
-          )}
-          {showAvg && (
-            <th onClick={() => handleSort("avg")}>
-              Daglig Snitt {sortBy === "avg" ? (sortDirection === "asc" ? "↑" : "↓") : ""}
-            </th>
-          )}
-          {showWeeklyAvg && (
-            <th onClick={() => handleSort("weeklyAvg")}>
-              Ukentlig Snitt {sortBy === "weeklyAvg" ? (sortDirection === "asc" ? "↑" : "↓") : ""}
-            </th>
-          )}
-          {showMonthlyAvg && (
-            <th onClick={() => handleSort("monthlyAvg")}>
-              Månedlig Snitt {sortBy === "monthlyAvg" ? (sortDirection === "asc" ? "↑" : "↓") : ""}
-            </th>
-          )}
-          {showYearlyAvg && (
-            <th onClick={() => handleSort("yearlyAvg")}>
-              Antatt antall pils i år {sortBy === "yearlyAvg" ? (sortDirection === "asc" ? "↑" : "↓") : ""}
-            </th>
-          )}
+          ))}
         </tr>
       </thead>
       <tbody>
-        {stats.map((stat, index) => (
-          <tr key={index}>
-            <td>{stat.name}</td>
-            {showTotal && renderColumn("total", stat.total)}
-            {showAvg && renderColumn("avg", stat.avg)}
-            {showWeeklyAvg && renderColumn("weeklyAvg", stat.weeklyAvg)}
-            {showMonthlyAvg && renderColumn("monthlyAvg", stat.monthlyAvg)}
-            {showYearlyAvg && renderColumn("yearlyAvg", stat.yearlyAvg)}
+        {visibleRows.map((row) => (
+          <tr key={row.key}>
+            <td
+              onClick={() => handleSort(row.key)}
+              style={{ cursor: "pointer", fontWeight: "bold" }}
+              title="Klikk for å sortere"
+            >
+              {row.label}
+              {sortBy === row.key ? (sortDirection === "asc" ? " ↑" : " ↓") : ""}
+            </td>
+            {stats.map((stat, index) => (
+              <td key={index}>{stat[row.key]}</td>
+            ))}
           </tr>
         ))}
       </tbody>
