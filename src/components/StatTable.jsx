@@ -1,3 +1,5 @@
+import { getGradientColor, getMinMaxPerRow } from "../utils/statColoring";
+
 export default function StatTable({
   stats,
   showTotal,
@@ -8,6 +10,7 @@ export default function StatTable({
   showSoberStreak,
   showDrinkingStreak,
   showMaxUnitsInOneDay,
+  showMaxUnitsInOneDayDates,
   sortBy,
   sortDirection,
   onSortChange
@@ -24,32 +27,13 @@ export default function StatTable({
     showYearlyAvg && { key: "yearlyAvg", label: "Antatt antall pils i år" },
     showSoberStreak && { key: "longestSoberStreak", label: "Lengst edru (d)" },
     showDrinkingStreak && { key: "longestDrinkingStreak", label: "Flest dager på rad" },
-    showMaxUnitsInOneDay && { key: "maxUnitsInOneDay", label: "Flest enheter på en dag" }
+    showMaxUnitsInOneDay && { key: "maxUnitsInOneDay", label: "Flest enheter på en dag" },
+    showMaxUnitsInOneDayDates && { key: "maxUnitsInOneDayDates", label: "Dato(er) for rekord" }
   ].filter(Boolean);
 
-  // 👇 Helper: get min/max for each row
-  const getMinMaxPerRow = () => {
-    const result = {};
-    visibleRows.forEach(({ key }) => {
-      const values = stats
-        .map((s) => parseFloat(s[key]))
-        .filter((v) => !isNaN(v));
-      const min = Math.min(...values);
-      const max = Math.max(...values);
-      result[key] = { min, max };
-    });
-    return result;
-  };
+  const rowMinMax = getMinMaxPerRow(stats, visibleRows);
+  const invertedStats = ["longestSoberStreak"];
 
-  const rowMinMax = getMinMaxPerRow();
-
-  // 👇 Helper: color from red (0) → green (120) using HSL
-  const getGradientColor = (value, min, max) => {
-    if (max === min) return "#ffffff"; // avoid div by 0
-    const ratio = (value - min) / (max - min);
-    const hue = 120 * ratio; // 0 = red, 120 = green
-    return `hsl(${hue}, 75%, 75%)`;
-  };
 
   return (
     <div className="stat-table-container">
@@ -77,11 +61,20 @@ export default function StatTable({
               </td>
               {stats.map((stat, index) => {
                 const rawValue = stat[row.key];
-                const value = parseFloat(rawValue);
+                let value = rawValue;
+                if (typeof rawValue === "number") {
+                  value = rawValue;
+                } else if (typeof rawValue === "string") {
+                  value = rawValue;
+                } else if (Array.isArray(rawValue)) {
+                  value = rawValue.join(", ");
+                } else {
+                  value = "";
+                }
                 const { min, max } = rowMinMax[row.key] || {};
                 const backgroundColor = !isNaN(value)
-                  ? getGradientColor(value, min, max)
-                  : undefined;
+                  ? getGradientColor(value, min, max, invertedStats.includes(row.key))
+                  : "#e0e0e0";
                 return (
                   <td
                     key={index}

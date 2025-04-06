@@ -9,6 +9,7 @@ export default function useStatVisibility() {
     const [showSoberStreak, setShowSoberStreak] = useState(true);
     const [showDrinkingStreak, setShowDrinkingStreak] = useState(true);
     const [showMaxUnitsInOneDay, setShowMaxUnitsInOneDay] = useState(true);
+    const [showMaxUnitsInOneDayDates, setShowMaxUnitsInOneDayDates] = useState(true);
 
     return {
         showTotal,
@@ -26,6 +27,8 @@ export default function useStatVisibility() {
         showDrinkingStreak,
         setShowDrinkingStreak,
         showMaxUnitsInOneDay,
-        setShowMaxUnitsInOneDay
+        setShowMaxUnitsInOneDay,
+        showMaxUnitsInOneDayDates,
+        setShowMaxUnitsInOneDayDates
     };
 }

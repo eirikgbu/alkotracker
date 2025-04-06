@@ -1,11 +1,18 @@
-export function getMaxUnitsInOneDay(values, personIndex) {
-    let maxUnits = 0;
+export function getMaxUnitsInOneDay(days, values, personIndex) {
+    let maxUnitsInOneDay = 0;
+    let maxUnitsInOneDayDates = [];
 
-    for (const row of values) {
-        const val = row[personIndex];
-        if (val > maxUnits) {
-            maxUnits = val;
+    for (let i = 0; i < values.length; i++) {
+        const val = values[i][personIndex];
+        const day = days[i];
+
+        if (val > maxUnitsInOneDay) {
+            maxUnitsInOneDay = val;
+            maxUnitsInOneDayDates = [day];
+        } else if (val === maxUnitsInOneDay) {
+            maxUnitsInOneDayDates.push(day);
         }
     }
-    return maxUnits;
+
+    return { maxUnitsInOneDay, maxUnitsInOneDayDates };
 }

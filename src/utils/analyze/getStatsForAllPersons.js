@@ -3,7 +3,7 @@ import { getLongestSoberStreak } from './getLongestSoberStreak';
 import { getMaxUnitsInOneDay } from './getMaxUnitsInOneDay';
 
 export default function getStatsForAllPersons(data) {
-  const { names, values } = data;
+  const { days, names, values } = data;
 
   return names.map((name, i) => {
     let total = 0;
@@ -23,7 +23,8 @@ export default function getStatsForAllPersons(data) {
     const yearlyAvg = (avg * 365).toFixed(0);
     const longestSoberStreak = getLongestSoberStreak(values, i);
     const longestDrinkingStreak = getLongestDrinkingStreak(values, i);
-    const maxUnitsInOneDay = getMaxUnitsInOneDay(values, i);
+    const { maxUnitsInOneDay, maxUnitsInOneDayDates } = getMaxUnitsInOneDay(days, values, i);
+    console.log(name, "maxUnitsInOneDayDates", maxUnitsInOneDayDates);
 
     return {
       name,
@@ -35,6 +36,7 @@ export default function getStatsForAllPersons(data) {
       longestSoberStreak,
       longestDrinkingStreak,
       maxUnitsInOneDay,
+      maxUnitsInOneDayDates
     };
   }).sort((a, b) => b.total - a.total);
 }
