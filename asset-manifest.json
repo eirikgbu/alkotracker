@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/alkotracker/static/css/main.190a84b3.css",
-    "main.js": "/alkotracker/static/js/main.4f411afd.js",
+    "main.css": "/alkotracker/static/css/main.9ba69883.css",
+    "main.js": "/alkotracker/static/js/main.043dd97f.js",
     "static/js/453.971ce0df.chunk.js": "/alkotracker/static/js/453.971ce0df.chunk.js",
-    "static/media/logo1.png": "/alkotracker/static/media/logo1.a55ffe258cd0f1df5427.png",
+    "static/media/logo.png": "/alkotracker/static/media/logo.4d40ee19e29c67adfbbf.png",
     "index.html": "/alkotracker/index.html",
-    "main.190a84b3.css.map": "/alkotracker/static/css/main.190a84b3.css.map",
-    "main.4f411afd.js.map": "/alkotracker/static/js/main.4f411afd.js.map",
+    "main.9ba69883.css.map": "/alkotracker/static/css/main.9ba69883.css.map",
+    "main.043dd97f.js.map": "/alkotracker/static/js/main.043dd97f.js.map",
     "453.971ce0df.chunk.js.map": "/alkotracker/static/js/453.971ce0df.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.190a84b3.css",
-    "static/js/main.4f411afd.js"
+    "static/css/main.9ba69883.css",
+    "static/js/main.043dd97f.js"
   ]
 }
