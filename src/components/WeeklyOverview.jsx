@@ -5,7 +5,6 @@ export default function WeeklyOverview() {
     <div>
       <h1>Ukentlig Oversikt</h1>
       <p>Her kommer forhåpentligvis mer funksjonalitet etterhvert.</p>
-      {/* Ukesfunksjonalitet kommer her */}
     </div>
   );
 }

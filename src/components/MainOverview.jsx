@@ -33,7 +33,9 @@ export default function MainOverview({
     showSoberStreak,
     setShowSoberStreak,
     showDrinkingStreak,
-    setShowDrinkingStreak
+    setShowDrinkingStreak,
+    showMaxUnitsInOneDay,
+    setShowMaxUnitsInOneDay
   } = useStatVisibility();
 
   const visibleStats = useMemo(() => {
@@ -67,6 +69,8 @@ export default function MainOverview({
         setShowSoberStreak={setShowSoberStreak}
         showDrinkingStreak={showDrinkingStreak}
         setShowDrinkingStreak={setShowDrinkingStreak}
+        showMaxUnitsInOneDay={showMaxUnitsInOneDay}
+        setShowMaxUnitsInOneDay={setShowMaxUnitsInOneDay}
       />
 
       <StatTable
@@ -78,6 +82,7 @@ export default function MainOverview({
         showYearlyAvg={showYearlyAvg}
         showSoberStreak={showSoberStreak}
         showDrinkingStreak={showDrinkingStreak}
+        showMaxUnitsInOneDay={showMaxUnitsInOneDay}
         sortBy={sortBy}
         sortDirection={sortDirection}
         onSortChange={handleSortChange}

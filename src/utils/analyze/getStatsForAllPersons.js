@@ -1,5 +1,6 @@
 import { getLongestDrinkingStreak } from './getLongestDrinkingStreak';
 import { getLongestSoberStreak } from './getLongestSoberStreak';
+import { getMaxUnitsInOneDay } from './getMaxUnitsInOneDay';
 
 export default function getStatsForAllPersons(data) {
   const { names, values } = data;
@@ -22,6 +23,7 @@ export default function getStatsForAllPersons(data) {
     const yearlyAvg = (avg * 365).toFixed(0);
     const longestSoberStreak = getLongestSoberStreak(values, i);
     const longestDrinkingStreak = getLongestDrinkingStreak(values, i);
+    const maxUnitsInOneDay = getMaxUnitsInOneDay(values, i);
 
     return {
       name,
@@ -32,6 +34,7 @@ export default function getStatsForAllPersons(data) {
       yearlyAvg,
       longestSoberStreak,
       longestDrinkingStreak,
+      maxUnitsInOneDay,
     };
   }).sort((a, b) => b.total - a.total);
 }

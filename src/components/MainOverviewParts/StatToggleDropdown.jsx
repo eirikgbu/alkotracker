@@ -34,6 +34,7 @@ export default function StatToggleDropdown(props) {
                     <label><input type="checkbox" checked={props.showYearlyAvg} onChange={() => toggle("ShowYearlyAvg")} /> Vis antatt antall pils i år</label>
                     <label><input type="checkbox" checked={props.showSoberStreak} onChange={() => toggle("ShowSoberStreak")} /> Vis lengste edru-periode</label>
                     <label><input type="checkbox" checked={props.showDrinkingStreak} onChange={() => toggle("ShowDrinkingStreak")} /> Vis lengste ikke-edru-periode</label>
+                    <label><input type="checkbox" checked={props.showMaxUnitsInOneDay} onChange={() => toggle("ShowMaxUnitsInOneDay")} /> Vis flest enheter på en dag</label>
                 </div>
             )}
         </div>

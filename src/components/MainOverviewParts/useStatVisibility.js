@@ -8,6 +8,7 @@ export default function useStatVisibility() {
     const [showYearlyAvg, setShowYearlyAvg] = useState(true);
     const [showSoberStreak, setShowSoberStreak] = useState(true);
     const [showDrinkingStreak, setShowDrinkingStreak] = useState(true);
+    const [showMaxUnitsInOneDay, setShowMaxUnitsInOneDay] = useState(true);
 
     return {
         showTotal,
@@ -23,6 +24,8 @@ export default function useStatVisibility() {
         showSoberStreak,
         setShowSoberStreak,
         showDrinkingStreak,
-        setShowDrinkingStreak
+        setShowDrinkingStreak,
+        showMaxUnitsInOneDay,
+        setShowMaxUnitsInOneDay
     };
 }
