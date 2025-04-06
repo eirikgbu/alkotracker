@@ -262,13 +262,31 @@ body.rainbow-mode button {
   height: 100vh;
 }
 
+
+
 .loading-logo {
   width: 25%;
   /* Adjust the width percentage as needed */
   max-width: 200px;
   /* Max size */
   margin-bottom: 20px;
+  animation: bounce 0.2s ease-in-out infinite;
+  max-height: 2000px;
+  margin-bottom: 16px;
 }
+
+@keyframes bounce {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
 
 .spinner {
   border: 4px solid #f3f3f3;
@@ -357,4 +375,59 @@ th {
   /* adjust if needed to match other cells */
   box-shadow: 1px 0 0 #444;
   /* optional: subtle separation from rest of table */
+}
+
+/* === PersonSelector dropdown === */
+.person-selector {
+  position: relative;
+  display: inline-block;
+  margin-left: 1rem;
+}
+
+.selector-toggle {
+  background-color: #444;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.selector-dropdown {
+  position: absolute;
+  top: 120%;
+  left: 0;
+  background: #2c2c2c;
+  border: 1px solid #555;
+  padding: 0.5rem;
+  border-radius: 6px;
+  z-index: 1000;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 150px;
+}
+
+.selector-dropdown label {
+  color: #f1f1f1;
+  font-size: 0.85rem;
+}
+
+.select-all-btn {
+  margin-top: 0.5rem;
+  padding: 4px 8px;
+  font-size: 0.8rem;
+  border: none;
+  background: #007bff;
+  color: white;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.stat-dropdown {
+  position: relative;
+  display: inline-block;
+  margin-left: 1rem;
 }

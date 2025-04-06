@@ -1,116 +1,87 @@
-import React from "react";
+import React, { useState, useMemo } from "react";
 import StatTable from "./StatTable";
+import PersonSelector from "./PersonSelector";
+import StatTogglePanel from "./MainOverviewParts/StatTogglePanel";
+import useStatVisibility from "./MainOverviewParts/useStatVisibility";
 
 export default function MainOverview({
-  data,
+  sheetData,
   selectedPeople,
-  showTotal,
-  showAvg,
-  showWeeklyAvg,
-  showMonthlyAvg,
-  showYearlyAvg,
-  showSoberStreak, // 👈 NY
-  sortBy,
-  sortDirection,
-  handleSortChange,
   setSelectedPeople,
-  setShowTotal,
-  setShowAvg,
-  setShowWeeklyAvg,
-  setShowMonthlyAvg,
-  setShowYearlyAvg,
-  setShowSoberStreak, // 👈 NY
-  filtered,
-  allStats
+  statsPerPerson
 }) {
+  const [sortBy, setSortBy] = useState("total");
+  const [sortDirection, setSortDirection] = useState("desc");
+
+  const handleSortChange = (column) => {
+    if (sortBy === column) {
+      setSortDirection((prev) => (prev === "asc" ? "desc" : "asc"));
+    } else {
+      setSortBy(column);
+      setSortDirection("desc");
+    }
+  };
+
+  const {
+    showTotal,
+    setShowTotal,
+    showAvg,
+    setShowAvg,
+    showWeeklyAvg,
+    setShowWeeklyAvg,
+    showMonthlyAvg,
+    setShowMonthlyAvg,
+    showYearlyAvg,
+    setShowYearlyAvg,
+    showSoberStreak,
+    setShowSoberStreak
+  } = useStatVisibility();
+
+  const visibleStats = useMemo(() => {
+    const filtered = selectedPeople.length
+      ? statsPerPerson.filter((p) => selectedPeople.includes(p.name))
+      : statsPerPerson;
+
+    return filtered.sort((a, b) => {
+      const aValue = parseFloat(a[sortBy]);
+      const bValue = parseFloat(b[sortBy]);
+      if (aValue < bValue) return sortDirection === "asc" ? -1 : 1;
+      if (aValue > bValue) return sortDirection === "asc" ? 1 : -1;
+      return 0;
+    });
+  }, [selectedPeople, statsPerPerson, sortBy, sortDirection]);
+
   return (
     <>
-      {/* Velg personer */}
-      <div>
-        {data.names.map((name) => (
-          <label key={name}>
-            <input
-              type="checkbox"
-              checked={selectedPeople.includes(name)}
-              onChange={() => {
-                setSelectedPeople((prev) =>
-                  prev.includes(name)
-                    ? prev.filter((n) => n !== name)
-                    : [...prev, name]
-                );
-              }}
-            />
-            {name}
-          </label>
-        ))}
-        {selectedPeople.length !== data.names.length && (
-          <button onClick={() => setSelectedPeople([...data.names])}>
-            Velg alle
-          </button>
-        )}
-      </div>
+      <PersonSelector
+        names={sheetData.names}
+        selectedPeople={selectedPeople}
+        setSelectedPeople={setSelectedPeople}
+      />
 
-      {/* Velg visning og sortering */}
-      <div>
-        <label>
-          <input
-            type="checkbox"
-            checked={showTotal}
-            onChange={() => setShowTotal(!showTotal)}
-          />
-          Vis totalt
-        </label>
-        <label>
-          <input
-            type="checkbox"
-            checked={showAvg}
-            onChange={() => setShowAvg(!showAvg)}
-          />
-          Vis snitt
-        </label>
-        <label>
-          <input
-            type="checkbox"
-            checked={showWeeklyAvg}
-            onChange={() => setShowWeeklyAvg(!showWeeklyAvg)}
-          />
-          Vis ukentlig snitt
-        </label>
-        <label>
-          <input
-            type="checkbox"
-            checked={showMonthlyAvg}
-            onChange={() => setShowMonthlyAvg(!showMonthlyAvg)}
-          />
-          Vis månedlig snitt
-        </label>
-        <label>
-          <input
-            type="checkbox"
-            checked={showYearlyAvg}
-            onChange={() => setShowYearlyAvg(!showYearlyAvg)}
-          />
-          Vis antatt antall pils i år
-        </label>
-        <label>
-          <input
-            type="checkbox"
-            checked={showSoberStreak}
-            onChange={() => setShowSoberStreak(!showSoberStreak)}
-          />
-          Vis lengste edru-periode
-        </label>
-      </div>
+      <StatTogglePanel
+        showTotal={showTotal}
+        setShowTotal={setShowTotal}
+        showAvg={showAvg}
+        setShowAvg={setShowAvg}
+        showWeeklyAvg={showWeeklyAvg}
+        setShowWeeklyAvg={setShowWeeklyAvg}
+        showMonthlyAvg={showMonthlyAvg}
+        setShowMonthlyAvg={setShowMonthlyAvg}
+        showYearlyAvg={showYearlyAvg}
+        setShowYearlyAvg={setShowYearlyAvg}
+        showSoberStreak={showSoberStreak}
+        setShowSoberStreak={setShowSoberStreak}
+      />
 
-      {/* Tabell */}
       <StatTable
-        stats={filtered}
+        stats={visibleStats}
         showTotal={showTotal}
         showAvg={showAvg}
         showWeeklyAvg={showWeeklyAvg}
         showMonthlyAvg={showMonthlyAvg}
         showYearlyAvg={showYearlyAvg}
-        showSoberStreak={showSoberStreak} // 👈 NY
+        showSoberStreak={showSoberStreak}
         sortBy={sortBy}
         sortDirection={sortDirection}
         onSortChange={handleSortChange}
@@ -118,4 +89,3 @@ export default function MainOverview({
     </>
   );
 }
-
