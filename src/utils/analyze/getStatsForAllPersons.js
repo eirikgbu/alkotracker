@@ -1,27 +1,8 @@
 import { getLongestDrinkingStreak } from './getLongestDrinkingStreak';
+import { getLongestSoberStreak } from './getLongestSoberStreak';
 
 export default function getStatsForAllPersons(data) {
   const { names, values } = data;
-
-  // Finn lengste edru-periode for en person (0-enheter på rad)
-  function getLongestSoberStreak(values, personIndex) {
-    let maxStreak = 0;
-    let currentStreak = 0;
-
-    for (const row of values) {
-      const val = row[personIndex];
-      if (val === 0) {
-        currentStreak++;
-        if (currentStreak > maxStreak) {
-          maxStreak = currentStreak;
-        }
-      } else {
-        currentStreak = 0;
-      }
-    }
-
-    return maxStreak;
-  }
 
   return names.map((name, i) => {
     let total = 0;
