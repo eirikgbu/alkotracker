@@ -23,27 +23,14 @@ export default function StatTable({
     showYearlyAvg && { key: "yearlyAvg", label: "Antatt antall pils i år" }
   ].filter(Boolean);
 
-  const stickyStyle = {
-    position: "sticky",
-    left: 0,
-    background: "#fff",
-    zIndex: 2,
-    textAlign: "center",
-    verticalAlign: "middle",
-  };
-
   return (
-    <div style={{ overflowX: "auto", maxWidth: "100%" }}>
-      <table style={{ borderCollapse: "collapse", minWidth: "600px" }}>
+    <div className="stat-table-container">
+      <table className="stat-table">
         <thead>
           <tr>
-            <th style={{ ...stickyStyle, cursor: "default" }}></th>
+            <th className="sticky-cell"></th>
             {stats.map((stat, index) => (
-              <th key={index} style={{
-                cursor: "default",
-                textAlign: "center",
-                verticalAlign: "middle",
-              }}>
+              <th key={index} className="stat-table-header">
                 {stat.name}
               </th>
             ))}
@@ -53,23 +40,17 @@ export default function StatTable({
           {visibleRows.map((row) => (
             <tr key={row.key}>
               <td
+                className="sticky-cell stat-label clickable"
                 onClick={() => handleSort(row.key)}
-                style={{
-                  ...stickyStyle,
-                  cursor: "pointer",
-                  fontWeight: "bold",
-                  zIndex: 1,
-                }}
                 title="Klikk for å sortere"
               >
                 {row.label}
                 {sortBy === row.key ? (sortDirection === "asc" ? " ↑" : " ↓") : ""}
               </td>
               {stats.map((stat, index) => (
-                <td key={index} style={{
-                  textAlign: "center",
-                  verticalAlign: "middle"
-                }}>{stat[row.key]}</td>
+                <td key={index} className="stat-table-cell">
+                  {stat[row.key]}
+                </td>
               ))}
             </tr>
           ))}
