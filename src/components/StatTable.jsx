@@ -1,5 +1,3 @@
-import React from "react";
-
 export default function StatTable({
   stats,
   showTotal,
@@ -7,6 +5,7 @@ export default function StatTable({
   showWeeklyAvg,
   showMonthlyAvg,
   showYearlyAvg,
+  showSoberStreak, // 👈 Ny prop
   sortBy,
   sortDirection,
   onSortChange
@@ -20,7 +19,8 @@ export default function StatTable({
     showAvg && { key: "avg", label: "Daglig Snitt" },
     showWeeklyAvg && { key: "weeklyAvg", label: "Ukentlig Snitt" },
     showMonthlyAvg && { key: "monthlyAvg", label: "Månedlig Snitt" },
-    showYearlyAvg && { key: "yearlyAvg", label: "Antatt antall pils i år" }
+    showYearlyAvg && { key: "yearlyAvg", label: "Antatt antall pils i år" },
+    showSoberStreak && { key: "longestSoberStreak", label: "Lengst edru (d)" }
   ].filter(Boolean);
 
   return (
@@ -28,7 +28,7 @@ export default function StatTable({
       <table className="stat-table">
         <thead>
           <tr>
-            <th className="sticky-cell"></th>
+            <th className="sticky-cell">&nbsp;</th>
             {stats.map((stat, index) => (
               <th key={index} className="stat-table-header">
                 {stat.name}

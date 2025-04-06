@@ -6,9 +6,10 @@ export default function MainOverview({
   selectedPeople,
   showTotal,
   showAvg,
-  showWeeklyAvg,  // Legg til for ukentlig snitt
-  showMonthlyAvg,  // Legg til for månedlig snitt
-  showYearlyAvg,  // Legg til for årlig snitt
+  showWeeklyAvg,
+  showMonthlyAvg,
+  showYearlyAvg,
+  showSoberStreak, // 👈 NY
   sortBy,
   sortDirection,
   handleSortChange,
@@ -16,8 +17,9 @@ export default function MainOverview({
   setShowTotal,
   setShowAvg,
   setShowWeeklyAvg,
-  setShowMonthlyAvg,  // Legg til for månedlig snitt
-  setShowYearlyAvg,  // Legg til for årlig snitt
+  setShowMonthlyAvg,
+  setShowYearlyAvg,
+  setShowSoberStreak, // 👈 NY
   filtered,
   allStats
 }) {
@@ -69,7 +71,7 @@ export default function MainOverview({
         <label>
           <input
             type="checkbox"
-            checked={showWeeklyAvg}  // Legg til for ukentlig snitt
+            checked={showWeeklyAvg}
             onChange={() => setShowWeeklyAvg(!showWeeklyAvg)}
           />
           Vis ukentlig snitt
@@ -77,7 +79,7 @@ export default function MainOverview({
         <label>
           <input
             type="checkbox"
-            checked={showMonthlyAvg}  // Legg til for månedlig snitt
+            checked={showMonthlyAvg}
             onChange={() => setShowMonthlyAvg(!showMonthlyAvg)}
           />
           Vis månedlig snitt
@@ -85,10 +87,18 @@ export default function MainOverview({
         <label>
           <input
             type="checkbox"
-            checked={showYearlyAvg}  // Legg til for årlig snitt
+            checked={showYearlyAvg}
             onChange={() => setShowYearlyAvg(!showYearlyAvg)}
           />
           Vis antatt antall pils i år
+        </label>
+        <label>
+          <input
+            type="checkbox"
+            checked={showSoberStreak}
+            onChange={() => setShowSoberStreak(!showSoberStreak)}
+          />
+          Vis lengste edru-periode
         </label>
       </div>
 
@@ -97,9 +107,10 @@ export default function MainOverview({
         stats={filtered}
         showTotal={showTotal}
         showAvg={showAvg}
-        showWeeklyAvg={showWeeklyAvg}  // Send ukentlig snitt til tabellen
-        showMonthlyAvg={showMonthlyAvg}  // Send månedlig snitt til tabellen
-        showYearlyAvg={showYearlyAvg}  // Send årlig snitt til tabellen
+        showWeeklyAvg={showWeeklyAvg}
+        showMonthlyAvg={showMonthlyAvg}
+        showYearlyAvg={showYearlyAvg}
+        showSoberStreak={showSoberStreak} // 👈 NY
         sortBy={sortBy}
         sortDirection={sortDirection}
         onSortChange={handleSortChange}
@@ -107,3 +118,4 @@ export default function MainOverview({
     </>
   );
 }
+

@@ -1,4 +1,4 @@
-import React, { useState} from "react";
+import React, { useState } from "react";
 import useSheetData from "./hooks/useSheetData";
 import getStatsForAllPersons from "./utils/analyze/getStatsForAllPersons";
 import Tabs from "./components/Tabs";
@@ -20,6 +20,7 @@ function App() {
   const [sortBy, setSortBy] = useState("total");
   const [sortDirection, setSortDirection] = useState("desc");
   const [activeTab, setActiveTab] = useState("daily");
+  const [showSoberStreak, setShowSoberStreak] = useState(true);
 
   // Sorteringslogikk
   function handleSortChange(column) {
@@ -80,6 +81,7 @@ function App() {
             showWeeklyAvg={showWeeklyAvg}  // Send ukentlig snitt til MainOverview
             showMonthlyAvg={showMonthlyAvg}  // Send månedlig snitt til MainOverview
             showYearlyAvg={showYearlyAvg}  // Send årlig snitt til MainOverview
+            showSoberStreak={showSoberStreak}
             sortBy={sortBy}
             sortDirection={sortDirection}
             handleSortChange={handleSortChange}
@@ -89,7 +91,8 @@ function App() {
             setShowWeeklyAvg={setShowWeeklyAvg}  // Sette ukentlig snitt
             setShowMonthlyAvg={setShowMonthlyAvg}  // Sette månedlig snitt
             setShowYearlyAvg={setShowYearlyAvg}  // Sette årlig snitt
-            filtered={sortedStats} 
+            setShowSoberStreak={setShowSoberStreak}
+            filtered={sortedStats}
             allStats={allStats}
           />
         )}
