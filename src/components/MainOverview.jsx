@@ -1,13 +1,10 @@
 import React, { useState, useMemo } from "react";
 import StatTable from "./StatTable";
-import PersonSelector from "./PersonSelector";
-import StatTogglePanel from "./MainOverviewParts/StatTogglePanel";
+import StatToggleDropdown from "./MainOverviewParts/StatToggleDropdown";
 import useStatVisibility from "./MainOverviewParts/useStatVisibility";
 
 export default function MainOverview({
-  sheetData,
   selectedPeople,
-  setSelectedPeople,
   statsPerPerson
 }) {
   const [sortBy, setSortBy] = useState("total");
@@ -53,13 +50,7 @@ export default function MainOverview({
 
   return (
     <>
-      <PersonSelector
-        names={sheetData.names}
-        selectedPeople={selectedPeople}
-        setSelectedPeople={setSelectedPeople}
-      />
-
-      <StatTogglePanel
+      <StatToggleDropdown
         showTotal={showTotal}
         setShowTotal={setShowTotal}
         showAvg={showAvg}
