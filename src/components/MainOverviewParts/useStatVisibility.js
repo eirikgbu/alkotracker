@@ -7,6 +7,7 @@ export default function useStatVisibility() {
     const [showMonthlyAvg, setShowMonthlyAvg] = useState(true);
     const [showYearlyAvg, setShowYearlyAvg] = useState(true);
     const [showSoberStreak, setShowSoberStreak] = useState(true);
+    const [showDrinkingStreak, setShowDrinkingStreak] = useState(true);
 
     return {
         showTotal,
@@ -20,6 +21,8 @@ export default function useStatVisibility() {
         showYearlyAvg,
         setShowYearlyAvg,
         showSoberStreak,
-        setShowSoberStreak
+        setShowSoberStreak,
+        showDrinkingStreak,
+        setShowDrinkingStreak
     };
 }

@@ -6,6 +6,7 @@ export default function StatTable({
   showMonthlyAvg,
   showYearlyAvg,
   showSoberStreak,
+  showDrinkingStreak,
   sortBy,
   sortDirection,
   onSortChange
@@ -20,7 +21,8 @@ export default function StatTable({
     showWeeklyAvg && { key: "weeklyAvg", label: "Ukentlig Snitt" },
     showMonthlyAvg && { key: "monthlyAvg", label: "Månedlig Snitt" },
     showYearlyAvg && { key: "yearlyAvg", label: "Antatt antall pils i år" },
-    showSoberStreak && { key: "longestSoberStreak", label: "Lengst edru (d)" }
+    showSoberStreak && { key: "longestSoberStreak", label: "Lengst edru (d)" },
+    showDrinkingStreak && { key: "longestDrinkingStreak", label: "Lengst drukket (d)" }
   ].filter(Boolean);
 
   // 👇 Helper: get min/max for each row
