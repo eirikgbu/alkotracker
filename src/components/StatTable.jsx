@@ -5,7 +5,7 @@ export default function StatTable({
   showWeeklyAvg,
   showMonthlyAvg,
   showYearlyAvg,
-  showSoberStreak, // 👈 Ny prop
+  showSoberStreak,
   sortBy,
   sortDirection,
   onSortChange
@@ -22,6 +22,30 @@ export default function StatTable({
     showYearlyAvg && { key: "yearlyAvg", label: "Antatt antall pils i år" },
     showSoberStreak && { key: "longestSoberStreak", label: "Lengst edru (d)" }
   ].filter(Boolean);
+
+  // 👇 Helper: get min/max for each row
+  const getMinMaxPerRow = () => {
+    const result = {};
+    visibleRows.forEach(({ key }) => {
+      const values = stats
+        .map((s) => parseFloat(s[key]))
+        .filter((v) => !isNaN(v));
+      const min = Math.min(...values);
+      const max = Math.max(...values);
+      result[key] = { min, max };
+    });
+    return result;
+  };
+
+  const rowMinMax = getMinMaxPerRow();
+
+  // 👇 Helper: color from red (0) → green (120) using HSL
+  const getGradientColor = (value, min, max) => {
+    if (max === min) return "#ffffff"; // avoid div by 0
+    const ratio = (value - min) / (max - min);
+    const hue = 120 * ratio; // 0 = red, 120 = green
+    return `hsl(${hue}, 75%, 75%)`;
+  };
 
   return (
     <div className="stat-table-container">
@@ -47,11 +71,26 @@ export default function StatTable({
                 {row.label}
                 {sortBy === row.key ? (sortDirection === "asc" ? " ↑" : " ↓") : ""}
               </td>
-              {stats.map((stat, index) => (
-                <td key={index} className="stat-table-cell">
-                  {stat[row.key]}
-                </td>
-              ))}
+              {stats.map((stat, index) => {
+                const rawValue = stat[row.key];
+                const value = parseFloat(rawValue);
+                const { min, max } = rowMinMax[row.key] || {};
+                const backgroundColor = !isNaN(value)
+                  ? getGradientColor(value, min, max)
+                  : undefined;
+                return (
+                  <td
+                    key={index}
+                    className="stat-table-cell"
+                    style={{
+                      backgroundColor,
+                      color: "#000"
+                    }}
+                  >
+                    {value}
+                  </td>
+                );
+              })}
             </tr>
           ))}
         </tbody>
