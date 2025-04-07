@@ -15,14 +15,7 @@ const Topbar = ({ names, selectedPeople, setSelectedPeople }) => {
 
       <div className="topbar-buttons">
         <button onClick={() => setRainbowMode(prev => !prev)}>
-          {rainbowMode ? "🧘 Slå av rainbow mode" : "🌈 Bjarnemodus"}
-        </button>
-
-        <button
-          onClick={() => window.open("https://docs.google.com/spreadsheets/d/1ftksoHSA3AMyiKtpzCHwnfQV9pXO7ja-VN5nes1hOUk/edit?usp=sharing", "_blank")}
-          className="topbar-buttons-button"
-        >
-          📊 Regnearket
+          {rainbowMode ? "🧘 Slå av bjaenemodus" : "🌈 Bjarnemodus"}
         </button>
       </div>
 

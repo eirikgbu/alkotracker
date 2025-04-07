@@ -24,7 +24,6 @@ export default function getStatsForAllPersons(data) {
     const longestSoberStreak = getLongestSoberStreak(values, i);
     const longestDrinkingStreak = getLongestDrinkingStreak(values, i);
     const { maxUnitsInOneDay, maxUnitsInOneDayDates } = getMaxUnitsInOneDay(days, values, i);
-    console.log(name, "maxUnitsInOneDayDates", maxUnitsInOneDayDates);
 
     return {
       name,
